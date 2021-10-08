@@ -1,0 +1,31 @@
+{
+  "name": "wooshi-contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joshua-Oladeji/Wooshi-contract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Joshua-Oladeji/Wooshi-contract/issues"
+  },
+  "homepage": "https://github.com/Joshua-Oladeji/Wooshi-contract#readme",
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "ethers": "^5.0.0",
+    "hardhat": "^2.6.5"
+  },
+  "dependencies": {
+    "@alch/alchemy-web3": "^1.1.4",
+    "@openzeppelin/contracts": "^4.3.2",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
