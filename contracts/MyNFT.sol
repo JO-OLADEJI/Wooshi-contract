@@ -10,21 +10,50 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 contract MyNFT is ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
+    
+    
+    uint256 public cost = 0.11 ether;
+    uint256 public maxSupply = 11111;
+    uint256 public maxMintAmount = 20;
+    bool public paused = false;
+    bool public presale = false;
+    mapping(address => bool) public whitelisted;
+  
 
-    constructor() public ERC721("MyNFT", "NFT") {}
+    constructor() ERC721("Wooshi", "NFT") {}
 
-    function mintNFT(address recipient, string memory tokenURI)
+    function mintNFT(address recipient, string memory tokenURI, uint256 mintAmount)
         public payable
         returns (uint256)
     {
-        require(msg.value >= 110000000000000000, "Not enough ETH sent; check price!");
+        require(!paused);
+        if (presale)
+        {
+            require(whitelisted[msg.sender]);
+        }
+        require(mintAmount > 0);
+        require(mintAmount <= maxMintAmount);
+        require(msg.value >= cost * mintAmount, "Not enough ETH sent; check price!");
+        require(_tokenIds.current() + mintAmount <= maxSupply); // check if tokens are not up to max supply
 
-        _tokenIds.increment();
-
-        uint256 newItemId = _tokenIds.current();
-        _mint(recipient, newItemId);
-        _setTokenURI(newItemId, tokenURI);
+        uint256 newItemId;
+        
+        for (uint256 i = 1; i <= mintAmount; i++) {
+            _tokenIds.increment();
+            newItemId = _tokenIds.current();
+            _mint(recipient, newItemId);
+            _setTokenURI(newItemId, tokenURI);
+        }
 
         return newItemId;
     }
 }
+
+
+
+
+
+
+
+
+
